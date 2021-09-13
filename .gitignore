@@ -1,0 +1,9 @@
+# IDEs and editors
+.idea/*
+
+# dependencies
+/node_modules
+
+#Protractor, Jasmine
+/results/*
+/protractor/results/*

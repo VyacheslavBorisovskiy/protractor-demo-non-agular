@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "mapRoot": "./dist/out-tsc/",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2016",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/protractor"
+    ],
+    "lib": ["ES2017", "dom"],
+    "types": [
+      "node",
+      "jasmine",
+      "jasminewd2"
+    ],
+    
+  },
+  "includes": [
+    "**/*.ts"
+  ]
+}

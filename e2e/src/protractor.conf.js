@@ -1,0 +1,69 @@
+'use strict';
+const JR = require('protractor-jasmine2-html-reporter');
+const testResultsDir = 'results';
+
+exports.config = {
+    framework: 'jasmine', //Type of Framework used 
+    // allScriptsTimeout: 10000,
+
+    parserOptions: {
+        tsconfigRootDir: __dirname,
+      },
+    // baseUrl: 'https://www.huffpost.com/',  
+    directConnect:true, 
+    specs: ['./specs/header.spec.ts', './specs/menu.spec.ts'], //Name of the Specfile 
+    // specs: ['./specs/menu.spec.ts'],
+
+    capabilities:{
+        browserName: 'chrome',
+        shardTestFiles: true,
+        maxInstances: 1,
+        chromeOptions: {
+            args: [ '--window-size=1920x1080', '--headless'],
+            prefs: {
+                'profile.managed_default_content_settings.notifications': 1
+            }
+        }
+    },
+    jasmineNodeOpts: {
+        showColors: true,
+        isVerbose: false,
+        includeStackTrace: false,
+        defaultTimeoutInterval: 30000,
+        // print: function() {}
+    },
+    onPrepare: async () => { 
+          require('ts-node').register({ 
+          project: require('path').join(__dirname, './tsconfig.json') // Relative path of tsconfig.json file 
+        });
+
+        jasmine.getEnv().addReporter(
+            new JR({
+                takeScreenshotsOnlyOnFailures: true,
+                savePath: testResultsDir,
+            })
+        );
+        browser.driver
+        .manage()
+        .window()
+        .maximize();
+
+    let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+
+    jasmine.getEnv().addReporter(
+        new SpecReporter({
+            spec: {
+                displayStacktrace: true,
+                displayFailuresSummary: true,
+                displaySpecDuration: true
+            }
+        })
+    );
+    await browser.waitForAngularEnabled(false);
+    } 
+
+    
+    
+
+
+};
