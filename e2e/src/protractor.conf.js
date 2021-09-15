@@ -1,5 +1,5 @@
 'use strict';
-const JR = require('protractor-jasmine2-html-reporter');
+// const JR = require('protractor-jasmine2-html-reporter');
 const testResultsDir = 'results';
 
 exports.config = {
@@ -37,12 +37,12 @@ exports.config = {
           project: require('path').join(__dirname, './tsconfig.json') // Relative path of tsconfig.json file 
         });
 
-        jasmine.getEnv().addReporter(
-            new JR({
-                takeScreenshotsOnlyOnFailures: true,
-                savePath: testResultsDir,
-            })
-        );
+        // jasmine.getEnv().addReporter(
+        //     new JR({
+        //         takeScreenshotsOnlyOnFailures: true,
+        //         savePath: testResultsDir,
+        //     })
+        // );
         browser.driver
         .manage()
         .window()
@@ -50,15 +50,21 @@ exports.config = {
 
     let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
-    jasmine.getEnv().addReporter(
-        new SpecReporter({
-            spec: {
-                displayStacktrace: true,
-                displayFailuresSummary: true,
-                displaySpecDuration: true
-            }
-        })
-    );
+    // jasmine.getEnv().addReporter(
+    //     new SpecReporter({
+    //         spec: {
+    //             displayStacktrace: true,
+    //             displayFailuresSummary: true,
+    //             displaySpecDuration: true
+    //         }
+    //     })
+    // );
+
+    var AllureReporter = require('jasmine-allure-reporter');
+    jasmine.getEnv().addReporter(new AllureReporter({
+        resultsDir: 'allure-results'
+      }));
+
     await browser.waitForAngularEnabled(false);
     } 
 
