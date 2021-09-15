@@ -3,7 +3,7 @@ import { DataProvider } from "../data-provider/data-provider";
 import { assertElementContainsText } from "../helpers/assertion-helper";
 import { MenuPO } from "../page-objects/menu.po"
 
-describe('Open the menu', () => {
+describe('Open the hamburger menu', () => {
     beforeEach(function(){
             browser.get('https://www.huffpost.com/');
     });

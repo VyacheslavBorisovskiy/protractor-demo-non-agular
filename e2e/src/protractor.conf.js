@@ -1,6 +1,6 @@
 'use strict';
 // const JR = require('protractor-jasmine2-html-reporter');
-const testResultsDir = 'results';
+// const testResultsDir = 'results';
 
 exports.config = {
     framework: 'jasmine', //Type of Framework used 
@@ -25,6 +25,24 @@ exports.config = {
             }
         }
     },
+
+    // multiCapabilities:[{
+    //     'browserName': 'chrome',
+    //     shardTestFiles: true,
+    //     maxInstances: 2,
+    //     chromeOptions: {
+    //         args: [ '--window-size=1920x1080', '--headless'],
+    //         prefs: {
+    //             'profile.managed_default_content_settings.notifications': 1
+    //         }
+    //     }, {
+    //     'browserName': 'firefox',
+    //     'moz:firefoxOptions': {
+    //         'args': ['--safe-mode']
+    //       }
+    //     }
+
+    // }],
     jasmineNodeOpts: {
         showColors: true,
         isVerbose: false,
@@ -63,13 +81,20 @@ exports.config = {
     var AllureReporter = require('jasmine-allure-reporter');
     jasmine.getEnv().addReporter(new AllureReporter({
         resultsDir: 'allure-results'
+
       }));
 
-    await browser.waitForAngularEnabled(false);
-    } 
+      jasmine.getEnv().afterEach(function(done){
+        browser.takeScreenshot().then(function (png) {
+          allure.createAttachment('Screenshot', function () {
+            return new Buffer(png, 'base64')
+          }, 'image/png')();
+          done();
+        })
+      });
 
-    
-    
+    await browser.waitForAngularEnabled(false);
+    }
 
 
 };

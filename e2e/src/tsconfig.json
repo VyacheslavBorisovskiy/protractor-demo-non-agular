@@ -19,7 +19,7 @@
     "types": [
       "node",
       "jasmine",
-      "jasminewd2"
+      "jasminewd2", 
     ],
     
   },
