@@ -10,44 +10,75 @@ exports.config = {
         tsconfigRootDir: __dirname,
       },
     // baseUrl: 'https://www.huffpost.com/',  
-    directConnect:true, 
+    // directConnect:true,
+    seleniumAddress: "http://localhost:4444/wd/hub",
     specs: ['./specs/header.spec.ts', './specs/menu.spec.ts'], //Name of the Specfile 
-    // specs: ['./specs/menu.spec.ts'],
-
-    capabilities:{
-        browserName: 'chrome',
-        shardTestFiles: true,
-        maxInstances: 1,
-        chromeOptions: {
-            args: [ '--window-size=1920x1080', '--headless'],
-            prefs: {
-                'profile.managed_default_content_settings.notifications': 1
-            }
-        }
-    },
-
-    // multiCapabilities:[{
-    //     'browserName': 'chrome',
+    // SELENIUM_PROMISE_MANAGER: false,
+    // capabilities:{
+    //     browserName: 'chrome',
     //     shardTestFiles: true,
-    //     maxInstances: 2,
+    //     maxInstances: 1,
     //     chromeOptions: {
     //         args: [ '--window-size=1920x1080', '--headless'],
     //         prefs: {
     //             'profile.managed_default_content_settings.notifications': 1
     //         }
-    //     }, {
-    //     'browserName': 'firefox',
-    //     'moz:firefoxOptions': {
-    //         'args': ['--safe-mode']
-    //       }
     //     }
+    // },
 
-    // }],
+
+    
+    
+
+    // capabilities:{
+    //     browserName: 'firefox',
+    //     shardTestFiles: true,
+    //     maxInstances: 5,
+    //     'moz:firefoxOptions': {
+    //                 'args': ['--headless', '--safe-mode'],
+    //               },
+    //               browserVersion: 'latest',
+
+    // },
+
+
+    // // multiCapabilities:[
+    // //     { 
+    // //         'browserName': 'chrome',
+    // //     // 'chromeOptions': {
+    // //     //     'args': [ '--window-size=1920x1080', '--headless'],
+    // //     //     'prefs': {
+    // //     //         'profile.managed_default_content_settings.notifications': 1
+    // //     //     },
+    // //     // //     'shardTestFiles': true,
+    // //     // // 'maxInstances': 1,
+    // //     // }
+    // // }, 
+    // //     { 
+    // //         'browserName': 'firefox',
+    // //     // 'moz:firefoxOptions': {
+    // //     //     'args': ['--window-size=1920x1080', '--headless'],
+    // //     //     'shardTestFiles': true,
+    // //     // 'maxInstances': 1,
+    // //     //   }
+    // //     },
+
+    // //     { 'browserName': 'Safari',
+    // //     // 'moz:firefoxOptions': {
+    // //     //     'args': ['--window-size=1920x1080', '--headless'],
+    // //     //     'shardTestFiles': true,
+    // //     // 'maxInstances': 1,
+    // //     //   }
+    // //     'browser_version': 'latest',
+    // //  'os_version': 'Big Sur'
+    // //     }
+    // ],
+
     jasmineNodeOpts: {
         showColors: true,
         isVerbose: false,
         includeStackTrace: false,
-        defaultTimeoutInterval: 30000,
+        // defaultTimeoutInterval: 30000,
         // print: function() {}
     },
     onPrepare: async () => { 
@@ -66,7 +97,7 @@ exports.config = {
         .window()
         .maximize();
 
-    let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+    // let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
     // jasmine.getEnv().addReporter(
     //     new SpecReporter({
@@ -83,7 +114,7 @@ exports.config = {
         resultsDir: 'allure-results'
 
       }));
-
+//TODO: new Buffer is deprecated
       jasmine.getEnv().afterEach(function(done){
         browser.takeScreenshot().then(function (png) {
           allure.createAttachment('Screenshot', function () {

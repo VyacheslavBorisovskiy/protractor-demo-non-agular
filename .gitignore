@@ -7,3 +7,6 @@
 #Protractor, Jasmine
 /results/*
 /protractor/results/*
+
+# Allure reports
+allure-results/*
